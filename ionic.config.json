@@ -1,0 +1,7 @@
+{
+  "name": "Tareita",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
