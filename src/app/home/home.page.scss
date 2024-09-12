@@ -25,3 +25,62 @@
 #container a {
   text-decoration: none;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px; /* Ajusta según sea necesario */
+}
+
+.animated-button {
+  transition: all 0.3s ease;
+
+  &:hover {
+    animation: pulse 0.5s infinite;
+    animation-timing-function: linear;   
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.custom-header {
+  animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-header {
+  ion-toolbar {
+    --background: #3880ff;
+    --color: white;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  ion-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    ion-icon {
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+  }
+}

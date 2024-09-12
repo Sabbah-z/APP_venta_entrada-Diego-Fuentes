@@ -1,20 +1,72 @@
-<ion-header [translucent]="true">
+<ion-header class="custom-header">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Compra de evento
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <form (ngSubmit)="onSubmit()">
+    <ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+      <ion-item>
+        <ion-input label="Nombre:" labelPlacement="floating" placeholder="Ingrese su nombre" [(ngModel)]="nombre" name="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Apellido:" labelPlacement="floating" placeholder="Ingrese su apellido" [(ngModel)]="apellido" name="apellido"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Edad:</ion-label>
+        <ion-input type="number" placeholder="Ingresa tu edad" [(ngModel)]="edad" name="edad" (ionChange)="calcularTotal()"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select label="Eventos" placeholder="Evento a seleccionar" [(ngModel)]="eventoSeleccionado" name="evento" (ionChange)="actualizarPrecio()">
+          <ion-select-option *ngFor="let evento of eventos" [value]="evento.nombre">
+            {{evento.nombre}} - ${{evento.precio}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="eventoSeleccionado">
+        <ion-label>Cantidad de entradas:</ion-label>
+        <ion-select [(ngModel)]="cantidadEntradas" name="cantidad" (ionChange)="calcularTotal()">
+          <ion-select-option *ngFor="let n of [1,2,3,4,5]">{{n}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-item *ngIf="total > 0">
+      <ion-label>Total a pagar: ${{total}}</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="descuento > 0">
+      <ion-label>Descuento aplicado: ${{descuento}}</ion-label>
+    </ion-item>
+
+    <div class="ion-text-center ion-margin-vertical">
+      <ion-button 
+        (click)="onSubmit()" 
+        [disabled]="!formularioValido()"
+        class="animated-button">Comprar</ion-button>
+    </div>
+
+    <ion-card *ngIf="mostrarRecibo">
+      <ion-card-header>
+        <ion-card-title>Recibo de Compra</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let item of itemsRecibo">
+            <ion-label>{{item.label}}: {{item.value}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+  </form>
 </ion-content>
